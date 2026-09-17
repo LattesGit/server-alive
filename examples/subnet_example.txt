@@ -1,32 +1,46 @@
-# Example subnet targets (generated /24 expansion)
+# SERVERALIVE | SUBNET EXAMPLES
 
-# Yerel Ağ Başlangıç ve Gateway
+# Example IPv4 hosts from a private /24 network
+
 192.168.1.1
-192.168.1.254
-
-(DHCP Pool)
 192.168.1.2
 192.168.1.3
-192.168.1.4
-192.168.1.5
 192.168.1.10
 192.168.1.20
+192.168.1.50
+192.168.1.100
+192.168.1.120
+192.168.1.200
+192.168.1.254
+
+# Example IoT and network devices
+
+192.168.1.25
 192.168.1.30
 192.168.1.40
-192.168.1.50
+192.168.1.60
+192.168.1.80
 
-192.168.[REDACTED].[REDACTED].[REDACTED].[REDACTED].1.120
+# Network and broadcast examples
 
-# (Printers, IoT, APs)
-192.168.[REDACTED].[REDACTED].[REDACTED].1.250
-
-# (Localhost & Broadcast)
-127.0.0.1
+192.168.1.1
+192.168.1.254
 192.168.1.255
 
-# different network example
+# Additional private network example
+
 10.0.0.1
 10.0.0.2
 10.0.0.10
 10.0.0.50
 10.0.0.100
+
+# CIDR examples
+
+# Use these directly with ServerAlive:
+
+#
+
+# ./server_alive.sh -s 192.168.1.0/24
+
+# ./server_alive.sh -s 10.0.0.0/24
