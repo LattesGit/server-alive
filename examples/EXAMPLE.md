@@ -1,29 +1,134 @@
 # SCENARIOS & DATASETS
 
-This directory contains example datasets for **ServerAlive**, used to simulate different network scanning scenarios.
+This directory contains example datasets for **ServerAlive**.
 
-These files are intended for testing, validation, and demonstration purposes.
+The files provide simple test inputs for validating target parsing, port configuration, file-based scanning, and subnet discovery without requiring a custom dataset.
 
 ---
 
 ## Components
 
-- `targets.txt`  
-  A list of example hosts including public services and local network nodes.
+### `targets.txt`
 
-- `custom_ports.txt`  
-  Predefined port sets grouped by common service categories (Web, Database, Admin, Legacy).
+Contains example hostnames and IPv4 addresses that can be used to test file-based target loading.
 
-- `subnet_example.txt`  
-  Example IP ranges for /24 network scanning simulation.
+```text
+example.com
+192.168.1.1
+192.168.1.10
+```
+
+### `custom_ports.txt`
+
+Contains example port configurations for testing custom port lists and ranges.
+
+```text
+22
+80
+443
+8080
+8443
+```
+
+### `subnet_example.txt`
+
+Contains example IPv4 CIDR networks for testing subnet target generation.
+
+```text
+192.168.1.0/24
+10.0.0.0/24
+172.16.0.0/24
+```
 
 ---
 
-## Execution
+## Usage
 
-These datasets can be used with ServerAlive as follows:
+### Target Dataset
 
 ```bash
 ./server_alive.sh -f examples/targets.txt
-./server_alive.sh -p "80,443,22" scanme.nmap.org
+```
+
+### Custom Ports
+
+```bash
+./server_alive.sh -p "22,80,443" example.com
+```
+
+Port ranges can also be tested:
+
+```bash
+./server_alive.sh -p "20-25,80,443" 192.168.1.1
+```
+
+### Subnet Dataset
+
+```bash
 ./server_alive.sh -s 192.168.1.0/24
+```
+
+---
+
+## Example Scenarios
+
+### Single Host
+
+```bash
+./server_alive.sh 192.168.1.1
+```
+
+Tests basic ICMP, TCP and HTTP/HTTPS detection against a single target.
+
+### Multiple Hosts
+
+```bash
+./server_alive.sh 192.168.1.1 192.168.1.10 192.168.1.20
+```
+
+Tests multiple target handling and parallel execution.
+
+### File-Based Scan
+
+```bash
+./server_alive.sh -f examples/targets.txt -j 50
+```
+
+Tests target file parsing, duplicate removal and configurable concurrency.
+
+### Subnet Discovery
+
+```bash
+./server_alive.sh -s 192.168.1.0/24 -j 100
+```
+
+Tests IPv4 CIDR expansion and parallel host discovery.
+
+### Structured Export
+
+```bash
+./server_alive.sh -f examples/targets.txt --json -o results.json
+```
+
+Tests JSON result generation.
+
+```bash
+./server_alive.sh -f examples/targets.txt --csv -o results.csv
+```
+
+Tests CSV result generation.
+
+---
+
+## Purpose
+
+These datasets are useful for:
+
+* Testing new ServerAlive releases
+* Validating command-line options
+* Checking output formatting
+* Testing parallel execution
+* Demonstrating basic usage
+* Reproducing simple scanning scenarios
+
+The examples are intentionally small and can be replaced with authorized targets appropriate for your environment.
